@@ -2,20 +2,9 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-    function getNowDate() {
-        const now = new Date(),
-              hours = now.getHours(),
-              minutes = (now.getMinutes()<10?'0':'') + now.getMinutes(),
-              day = now.getDate(),
-              month = now.getMonth() + 1,
-              year = now.getFullYear();
-
-        return `${hours}:${minutes} ${day}.${month}.${year}`;
-    }
-
     const tasksDB = {
         backlog: [
-            {name: 'Выучить JS', createDate: getNowDate()},
+            {name: 'Выучить JS', createDate: 'method'},
             {name: 'Выучить React', createDate: 'method'}
         ],
 
@@ -35,6 +24,50 @@ window.addEventListener('DOMContentLoaded', () => {
             {name: 'Прочитать новости', createDate: 'method'}
         ]   
     };
+
+    function getNowDate() {
+        const now = new Date(),
+              hours = now.getHours(),
+              minutes = (now.getMinutes()<10?'0':'') + now.getMinutes(),
+              day = now.getDate(),
+              month = now.getMonth() + 1,
+              year = now.getFullYear();
+
+        return `${hours}:${minutes} ${day}.${month}.${year}`;
+    }
+
+    class card {
+        constructor(name) {
+            this.name = name;
+            this.getCreateDate();
+        }
+
+        getCreateDate() {
+            this.createDate = getNowDate();
+        }
+
+        getCompletionDate() {
+            this.completionDate = getNowDate();
+        }
+
+        render() {
+            const newTask = document.createElement('div');
+            newTask.classList.add('taskboard__item', 'task');
+
+            newTask.innerHTML = `
+                <div class="task__body">
+                    <p class="task__view">${this.name}</p>
+                    <input class="task__input" type="text" value="${this.name}">
+                </div>
+                <button class="task__edit" type="button" aria-label="Изменить"></button>
+            `;
+
+            document.querySelector('.taskboard__group--backlog .taskboard__list').append(newTask);
+            console.log(this);
+        }
+    }
+
+    new card('Покурить').render();
 
     console.log(tasksDB);
 
