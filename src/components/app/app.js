@@ -1,5 +1,5 @@
 import Header from '../header/header';
-import Main from '../main/main';
+import AddTaskForm from '../add-task-form/add-task-form';
 import '../../css/style.css';
 
 function App() {
@@ -7,7 +7,9 @@ function App() {
     <div className="board-app">
       <Header />
       <main className="board-app__main">
-        
+        <div className="board-app__inner">
+          <AddTaskForm />
+        </div>
       </main>
     </div>
   );
